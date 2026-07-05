@@ -28,6 +28,7 @@ const translations = {
         productUse1: 'Harmonie quotidienne',
         productUse2: 'Intensité professionnelle',
         productUse3: 'Créma dense et veloutée',
+        productWhatsappCta: 'Acheter via WhatsApp',
         aboutEyebrow: 'À propos de nous',
         aboutTitle: 'Un engagement quotidien pour l\'excellence',
         aboutText: 'Chez Nahi Coffee, nous mettons l\'accent sur la qualité des grains, une torréfaction maîtrisée, une sélection rigoureuse et un service professionnel pour garantir le meilleur café à chaque tasse.',
@@ -60,7 +61,15 @@ const translations = {
         formMessagePlaceholder: 'Décrivez votre besoin',
         whatsappCta: 'WhatsApp',
         formSend: 'Envoyer',
-        footerText: 'Site multilingue, mode clair/sombre et design adapté à votre marque.'
+        footerAbout: 'Distribution professionnelle de cafés d\'exception pour hôtels, restaurants, bureaux et amateurs de goût authentique.',
+        footerNavTitle: 'Navigation',
+        footerContactTitle: 'Contact',
+        footerPhone: 'Téléphone',
+        footerEmail: 'Email',
+        footerAddress: 'Adresse',
+        footerWhatsapp: 'WhatsApp',
+        footerRights: 'Tous droits réservés.',
+        footerText: 'La qualité dans chaque tasse — Rabat, Maroc.'
     },
     en: {
         brandTag: 'Quality in every cup',
@@ -91,6 +100,7 @@ const translations = {
         productUse1: 'Daily balance',
         productUse2: 'Professional intensity',
         productUse3: 'Dense silky crema',
+        productWhatsappCta: 'Order via WhatsApp',
         aboutEyebrow: 'About us',
         aboutTitle: 'A daily commitment to excellence',
         aboutText: 'At Nahi Coffee, we focus on bean quality, controlled roasting, careful selection, and professional service to deliver the best cup every time.',
@@ -123,7 +133,15 @@ const translations = {
         formMessagePlaceholder: 'Describe your needs',
         whatsappCta: 'WhatsApp',
         formSend: 'Send',
-        footerText: 'Multilingual site with light/dark mode and brand-ready design.'
+        footerAbout: 'Professional distribution of exceptional coffees for hotels, restaurants, offices, and lovers of authentic taste.',
+        footerNavTitle: 'Navigation',
+        footerContactTitle: 'Contact',
+        footerPhone: 'Phone',
+        footerEmail: 'Email',
+        footerAddress: 'Address',
+        footerWhatsapp: 'WhatsApp',
+        footerRights: 'All rights reserved.',
+        footerText: 'Quality in every cup — Rabat, Morocco.'
     },
     es: {
         brandTag: 'Calidad en cada taza',
@@ -154,6 +172,7 @@ const translations = {
         productUse1: 'Equilibrio diario',
         productUse2: 'Intensidad profesional',
         productUse3: 'Crema densa y sedosa',
+        productWhatsappCta: 'Comprar por WhatsApp',
         aboutEyebrow: 'Sobre nosotros',
         aboutTitle: 'Un compromiso diario con la excelencia',
         aboutText: 'En Nahi Coffee nos enfocamos en la calidad del grano, un tueste controlado, una selección rigurosa y un servicio profesional para ofrecer la mejor taza siempre.',
@@ -186,7 +205,15 @@ const translations = {
         formMessagePlaceholder: 'Describe lo que necesitas',
         whatsappCta: 'WhatsApp',
         formSend: 'Enviar',
-        footerText: 'Sitio multilingüe, modo claro/oscuro y diseño preparado para tu marca.'
+        footerAbout: 'Distribución profesional de cafés excepcionales para hoteles, restaurantes, oficinas y amantes del sabor auténtico.',
+        footerNavTitle: 'Navegación',
+        footerContactTitle: 'Contacto',
+        footerPhone: 'Teléfono',
+        footerEmail: 'Correo',
+        footerAddress: 'Dirección',
+        footerWhatsapp: 'WhatsApp',
+        footerRights: 'Todos los derechos reservados.',
+        footerText: 'Calidad en cada taza — Rabat, Marruecos.'
     },
     ar: {
         brandTag: 'الجودة في كل فنجان',
@@ -217,6 +244,7 @@ const translations = {
         productUse1: 'توازن يومي',
         productUse2: 'قوة احترافية',
         productUse3: 'كريما كثيفة وناعمة',
+        productWhatsappCta: 'اطلب عبر واتساب',
         aboutEyebrow: 'من نحن',
         aboutTitle: 'التزام يومي بالتميز',
         aboutText: 'في Nahi Coffee نركز على جودة الحبوب والتحميص المتقن والاختيار الدقيق والخدمة الاحترافية لضمان أفضل فنجان في كل مرة.',
@@ -249,7 +277,15 @@ const translations = {
         formMessagePlaceholder: 'صف ما تحتاج إليه',
         whatsappCta: 'واتساب',
         formSend: 'إرسال',
-        footerText: 'موقع متعدد اللغات مع وضع فاتح/داكن وتصميم مناسب للعلامة التجارية.'
+        footerAbout: 'توزيع احترافي لقهوة استثنائية للفنادق والمطاعم والمكاتب ومحبي المذاق الأصيل.',
+        footerNavTitle: 'التنقل',
+        footerContactTitle: 'اتصل بنا',
+        footerPhone: 'الهاتف',
+        footerEmail: 'البريد الإلكتروني',
+        footerAddress: 'العنوان',
+        footerWhatsapp: 'واتساب',
+        footerRights: 'جميع الحقوق محفوظة.',
+        footerText: 'الجودة في كل فنجان — الرباط، المغرب.'
     }
 };
 
@@ -268,6 +304,52 @@ const langMeta = {
     es: { label: 'ES', flag: 'flag-es' },
     ar: { label: 'AR', flag: 'flag-ar' }
 };
+
+const WHATSAPP_PHONE = '212661773616';
+
+const whatsappProductMessages = {
+    fr: (productName) => `Bonjour 👋\n\nJe souhaite acheter le café ${productName}.\n\nPouvez-vous me communiquer les modalités de commande ?\n\nMerci.`,
+    en: (productName) => `Hello 👋\n\nI would like to buy the ${productName} coffee.\n\nCould you please share the ordering details?\n\nThank you.`,
+    es: (productName) => `Hola 👋\n\nMe gustaría comprar el café ${productName}.\n\n¿Podría indicarme las modalidades de pedido?\n\nGracias.`,
+    ar: (productName) => `مرحبًا 👋\n\nأرغب في شراء قهوة ${productName}.\n\nهل يمكنكم إرسال تفاصيل الطلب؟\n\nشكرًا.`
+};
+
+function buildWhatsappProductUrl(productName, lang) {
+    const messageBuilder = whatsappProductMessages[lang] || whatsappProductMessages.fr;
+    const message = messageBuilder(productName);
+    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
+function updateProductWhatsappButtons(lang) {
+    const dictionary = translations[lang] || translations.fr;
+
+    document.querySelectorAll('.whatsapp-btn[data-product-key]').forEach((button) => {
+        const productKey = button.dataset.productKey;
+        const productName = dictionary[productKey] || translations.fr[productKey] || '';
+        const cta = dictionary.productWhatsappCta || translations.fr.productWhatsappCta;
+
+        button.setAttribute('aria-label', `${cta} — ${productName}`);
+    });
+}
+
+function initProductWhatsappButtons() {
+    document.querySelectorAll('.whatsapp-btn[data-product-key]').forEach((button) => {
+        if (button.dataset.whatsappBound === 'true') {
+            return;
+        }
+
+        button.dataset.whatsappBound = 'true';
+        button.addEventListener('click', () => {
+            const lang = html.lang || 'fr';
+            const dictionary = translations[lang] || translations.fr;
+            const productKey = button.dataset.productKey;
+            const productName = dictionary[productKey] || translations.fr[productKey] || '';
+            const url = buildWhatsappProductUrl(productName, lang);
+
+            window.open(url, '_blank', 'noopener,noreferrer');
+        });
+    });
+}
 
 function applyTranslations(lang) {
     const dictionary = translations[lang] || translations.fr;
@@ -300,6 +382,7 @@ function applyTranslations(lang) {
         button.classList.toggle('active', button.dataset.lang === lang);
     });
     localStorage.setItem('nahi-lang', lang);
+    updateProductWhatsappButtons(lang);
 }
 
 function applyTheme(theme) {
@@ -312,6 +395,7 @@ const savedTheme = 'dark';
 
 applyTranslations(savedLang);
 applyTheme(savedTheme);
+initProductWhatsappButtons();
 
 langButtons.forEach((button) => {
     button.addEventListener('click', () => applyTranslations(button.dataset.lang));
