@@ -255,8 +255,19 @@ const translations = {
 
 const html = document.documentElement;
 const body = document.body;
+const header = document.querySelector('.site-header');
+const navToggle = document.getElementById('navToggle');
+const navBackdrop = document.getElementById('navBackdrop');
+const langDropdowns = document.querySelectorAll('#langDropdown, [data-lang-dropdown]');
 const langButtons = document.querySelectorAll('[data-lang]');
-const themeToggle = document.getElementById('themeToggle');
+const themeToggles = document.querySelectorAll('#themeToggle, [data-theme-toggle]');
+
+const langMeta = {
+    fr: { label: 'FR', flag: 'flag-fr' },
+    en: { label: 'EN', flag: 'flag-en' },
+    es: { label: 'ES', flag: 'flag-es' },
+    ar: { label: 'AR', flag: 'flag-ar' }
+};
 
 function applyTranslations(lang) {
     const dictionary = translations[lang] || translations.fr;
@@ -276,6 +287,15 @@ function applyTranslations(lang) {
 
     body.dir = lang === 'ar' ? 'rtl' : 'ltr';
     html.lang = lang;
+
+    document.querySelectorAll('#currentLangLabel, [data-current-lang]').forEach((element) => {
+        element.textContent = langMeta[lang]?.label || 'FR';
+    });
+
+    document.querySelectorAll('#currentFlag, [data-current-flag]').forEach((element) => {
+        element.className = `lang-flag ${langMeta[lang]?.flag || 'flag-fr'}`;
+    });
+
     langButtons.forEach((button) => {
         button.classList.toggle('active', button.dataset.lang === lang);
     });
@@ -297,16 +317,70 @@ langButtons.forEach((button) => {
     button.addEventListener('click', () => applyTranslations(button.dataset.lang));
 });
 
-themeToggle.addEventListener('click', () => {
-    const nextTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(nextTheme);
+function setLangMenuOpen(isOpen) {
+    langDropdowns.forEach((dropdown) => {
+        dropdown.classList.toggle('open', isOpen);
+        const toggle = dropdown.querySelector('#langToggle, [data-lang-toggle]');
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        }
+    });
+}
+
+langDropdowns.forEach((dropdown) => {
+    const toggle = dropdown.querySelector('#langToggle, [data-lang-toggle]');
+    const menu = dropdown.querySelector('[role="menu"]');
+
+    toggle?.addEventListener('click', () => {
+        setLangMenuOpen(!dropdown.classList.contains('open'));
+    });
+
+    menu?.addEventListener('click', (event) => {
+        const selected = event.target.closest('[data-lang]');
+        if (!selected) {
+            return;
+        }
+
+        applyTranslations(selected.dataset.lang);
+        setLangMenuOpen(false);
+    });
 });
+
+themeToggles.forEach((button) => {
+    button.addEventListener('click', () => {
+        const nextTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+    });
+});
+
+function setNavOpen(isOpen) {
+    header.classList.toggle('nav-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navBackdrop.classList.toggle('visible', isOpen);
+    body.classList.toggle('nav-locked', isOpen);
+}
+
+navToggle.addEventListener('click', () => {
+    setNavOpen(!header.classList.contains('nav-open'));
+});
+
+document.addEventListener('click', (event) => {
+    if (!Array.from(langDropdowns).some((dropdown) => dropdown.contains(event.target))) {
+        setLangMenuOpen(false);
+    }
+});
+
+navBackdrop.addEventListener('click', () => setNavOpen(false));
 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', () => {
         const target = document.querySelector(anchor.getAttribute('href'));
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (window.innerWidth <= 1180) {
+            setNavOpen(false);
         }
     });
 });
@@ -322,19 +396,85 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 
-document.querySelector('.contact-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const submitButton = event.currentTarget.querySelector('button[type="submit"]');
-    const currentLang = html.lang || 'fr';
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const status = form.querySelector('[data-form-status]');
+    const getLang = () => html.lang || 'fr';
+
     const messages = {
-        fr: 'Merci. Votre message a été préparé pour envoi.',
-        en: 'Thank you. Your message is ready to be sent.',
-        es: 'Gracias. Tu mensaje está listo para enviarse.',
-        ar: 'شكرًا. رسالتك جاهزة للإرسال.'
+        fr: {
+            sending: 'Envoi en cours...',
+            success: 'Merci. Votre message a bien été envoyé.',
+            error: 'Erreur pendant l’envoi. Réessayez dans un instant.'
+        },
+        en: {
+            sending: 'Sending...',
+            success: 'Thank you. Your message has been sent.',
+            error: 'There was a problem sending your message. Please try again.'
+        },
+        es: {
+            sending: 'Enviando...',
+            success: 'Gracias. Tu mensaje se ha enviado.',
+            error: 'Hubo un problema al enviar tu mensaje. Intenta de nuevo.'
+        },
+        ar: {
+            sending: 'جارٍ الإرسال...',
+            success: 'شكرًا. تم إرسال رسالتك بنجاح.',
+            error: 'حدثت مشكلة أثناء الإرسال. حاول مرة أخرى.'
+        }
     };
 
-    submitButton.textContent = messages[currentLang] || messages.fr;
-    setTimeout(() => {
-        applyTranslations(currentLang);
-    }, 1800);
+    const setStatus = (key) => {
+        const lang = getLang();
+        if (status) {
+            status.textContent = messages[lang][key] || messages.fr[key];
+        }
+    };
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const submitLabel = submitButton ? submitButton.textContent : '';
+        const actionUrl = form.getAttribute('action');
+        const requestUrl = actionUrl ? actionUrl.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/') : '';
+        const formData = new FormData(form);
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = messages[getLang()].sending;
+        }
+
+        setStatus('sending');
+
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Form submission failed');
+            }
+
+            form.reset();
+            setStatus('success');
+        } catch (error) {
+            setStatus('error');
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = submitLabel || messages[getLang()].success;
+            }
+
+            setTimeout(() => {
+                applyTranslations(getLang());
+            }, 1800);
+        }
+    });
 });
