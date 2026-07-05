@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="NAHI COFFEE - Distribution professionnelle de cafés d'exception avec site multilingue et mode clair/sombre." />
+    <title>NAHI COFFEE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body id="top" data-theme="dark">
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="NAHI COFFEE">
+                <img src="images/logo.jpeg" alt="NAHI COFFEE" class="brand-logo" />
+                <span class="brand-copy">
+                    <strong>NAHI COFFEE</strong>
+                    <small data-i18n="brandTag">La qualité dans chaque tasse</small>
+                </span>
+            </a>
+
+            <nav class="site-nav" aria-label="Primary navigation">
+                <a href="#home" data-i18n="navHome">Accueil</a>
+                <a href="#cafes" data-i18n="navCafes">Nos Cafés</a>
+                <a href="#about" data-i18n="navAbout">À propos</a>
+                <a href="#services" data-i18n="navServices">Services</a>
+                <a href="#gallery" data-i18n="navGallery">Galerie</a>
+                <a href="#contact" data-i18n="navContact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">
+                    <span class="theme-icon">◐</span>
+                </button>
+                <div class="lang-switch" role="group" aria-label="Language switcher">
+                    <button type="button" data-lang="fr">FR</button>
+                    <button type="button" data-lang="en">EN</button>
+                    <button type="button" data-lang="es">ES</button>
+                    <button type="button" data-lang="ar">AR</button>
+                </div>
+                <a class="cta-button" href="#contact" data-i18n="headerCta">Contactez-nous</a>
+            </div>
+        </header>
+
+        <main id="home">
+            <section class="hero section-block">
+                <div class="hero-copy reveal">
+                    <p class="eyebrow" data-i18n="heroEyebrow">NAHI COFFEE</p>
+                    <h1 data-i18n="heroTitle">La qualité dans chaque tasse</h1>
+                    <p class="hero-text" data-i18n="heroText">
+                        Distribution professionnelle de cafés soigneusement sélectionnés pour les hôtels, restaurants,
+                        bureaux et amateurs de goût authentique.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#cafes" class="cta-button" data-i18n="heroPrimary">Découvrir nos cafés</a>
+                        <a href="#about" class="ghost-button" data-i18n="heroSecondary">En savoir plus</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="hero-ring"></div>
+                    <img src="images/Couveture.jpeg" alt="Cafés NAHI COFFEE" class="hero-image" />
+                </div>
+            </section>
+
+            <section id="cafes" class="section-block section-intro reveal">
+                <p class="eyebrow" data-i18n="productsEyebrow">Nos cafés</p>
+                <h2 data-i18n="productsTitle">Trois profils, une même passion</h2>
+                <p data-i18n="productsText">Une gamme conçue pour couvrir les usages premium du quotidien avec une
+                    identité visuelle cohérente et un rendu professionnel.</p>
+            </section>
+
+            <section class="products-grid">
+                <article class="product-card reveal">
+                    <img src="images/arabica.jpeg" alt="Arabica" />
+                    <div class="product-content">
+                        <span class="product-label">100% Arabica</span>
+                        <h3 data-i18n="arabicaTitle">Arabica</h3>
+                        <p data-i18n="arabicaText">Un café fin, doux et équilibré avec des notes délicates et fruitées.
+                        </p>
+                        <div class="product-meta">
+                            <span data-i18n="productUse1">Harmonie quotidienne</span>
+                            <strong>220 DH / kg</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card reveal">
+                    <img src="images/robusta.jpeg" alt="Robusta" />
+                    <div class="product-content">
+                        <span class="product-label">100% Robusta</span>
+                        <h3 data-i18n="robustaTitle">Robusta</h3>
+                        <p data-i18n="robustaText">Goût fort et intense, crème généreuse et arôme persistant.</p>
+                        <div class="product-meta">
+                            <span data-i18n="productUse2">Intensité professionnelle</span>
+                            <strong>170 DH / kg</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card reveal">
+                    <img src="images/mixte.jpeg" alt="Espresso Blend" />
+                    <div class="product-content">
+                        <span class="product-label">80% Robusta / 20% Arabica</span>
+                        <h3 data-i18n="blendTitle">Espresso Blend</h3>
+                        <p data-i18n="blendText">Puissant et équilibré avec un corps intense et des arômes persistants.
+                        </p>
+                        <div class="product-meta">
+                            <span data-i18n="productUse3">Créma dense et veloutée</span>
+                            <strong>190 DH / kg</strong>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section id="about" class="about section-block reveal">
+                <div class="about-image">
+                    <img src="images/Couveture.jpeg" alt="NAHI COFFEE presentation" />
+                </div>
+                <div class="about-copy">
+                    <p class="eyebrow" data-i18n="aboutEyebrow">À propos de nous</p>
+                    <h2 data-i18n="aboutTitle">Un engagement quotidien pour l'excellence</h2>
+                    <p data-i18n="aboutText">Chez Nahi Coffee, nous mettons l'accent sur la qualité des grains, une
+                        torréfaction maîtrisée, une sélection rigoureuse et un service professionnel pour garantir le
+                        meilleur café à chaque tasse.</p>
+                    <ul class="feature-list">
+                        <li data-i18n="feature1">Qualité des grains</li>
+                        <li data-i18n="feature2">Torréfaction maîtrisée</li>
+                        <li data-i18n="feature3">Sélection rigoureuse</li>
+                        <li data-i18n="feature4">Service professionnel</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="services" class="section-block reveal">
+                <div class="section-intro">
+                    <p class="eyebrow" data-i18n="servicesEyebrow">Nos services</p>
+                    <h2 data-i18n="servicesTitle">Des solutions café adaptées à vos besoins</h2>
+                </div>
+                <div class="services-grid">
+                    <article>
+                        <h3 data-i18n="service1">Distribution de café</h3>
+                        <p data-i18n="service1Text">Approvisionnement régulier pour structures qui recherchent fiabilité
+                            et constance.</p>
+                    </article>
+                    <article>
+                        <h3 data-i18n="service2">Entreprises & bureaux</h3>
+                        <p data-i18n="service2Text">Des solutions pensées pour créer une vraie expérience café au
+                            travail.</p>
+                    </article>
+                    <article>
+                        <h3 data-i18n="service3">Cafés & restaurants</h3>
+                        <p data-i18n="service3Text">Une offre adaptée aux établissements qui veulent se différencier par
+                            le goût.</p>
+                    </article>
+                    <article>
+                        <h3 data-i18n="service4">Hôtels & resorts</h3>
+                        <p data-i18n="service4Text">Une présentation premium pour des lieux où chaque détail compte.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="gallery" class="gallery-section section-block reveal">
+                <div class="gallery-grid">
+                    <img src="images/arabica.jpeg" alt="Arabica pack" />
+                    <img src="images/robusta.jpeg" alt="Robusta pack" />
+                    <img src="images/mixte.jpeg" alt="Espresso blend pack" />
+                    <div class="gallery-cta">
+                        <p class="eyebrow" data-i18n="galleryEyebrow">Galerie</p>
+                        <h2 data-i18n="galleryTitle">Une identité visuelle chaleureuse et premium</h2>
+                        <p data-i18n="galleryText">Des textures sombres, des reflets dorés et des visuels produits
+                            puissants pour un rendu crédible en marque professionnelle.</p>
+                        <a class="cta-button" href="#contact" data-i18n="galleryCta">Nous contacter</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact-section section-block reveal">
+                <div class="contact-card">
+                    <p class="eyebrow" data-i18n="contactEyebrow">Contactez-nous</p>
+                    <h2 data-i18n="contactTitle">Construisons ensemble votre expérience café</h2>
+                    <p data-i18n="contactText">Envoyez-nous un message pour obtenir un devis, un partenariat ou une
+                        présentation détaillée de la gamme.</p>
+
+                    <div class="contact-grid">
+                        <div>
+                            <span>Phone</span>
+                            <strong>0661 773616</strong>
+                        </div>
+                        <div>
+                            <span>Email</span>
+                            <strong>contact.nahicoffee@gmail.com</strong>
+                        </div>
+                        <div>
+                            <span>Address</span>
+                            <strong>Immeuble 9, Appt 5, Rue Ryad Hassan, Rabat</strong>
+                        </div>
+                    </div>
+
+                    <a class="whatsapp-button" href="https://wa.me/212661773616" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp chat">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12.04 2C6.52 2 2.04 6.48 2.04 12c0 1.86.51 3.67 1.47 5.25L2 22l4.89-1.44A9.93 9.93 0 0 0 12.04 22c5.52 0 10-4.48 10-10s-4.48-10-10-10Zm0 18.18c-1.68 0-3.33-.45-4.75-1.31l-.34-.2-2.9.85.87-2.82-.22-.36A8.14 8.14 0 0 1 3.84 12c0-4.54 3.69-8.22 8.2-8.22 2.2 0 4.25.85 5.8 2.4a8.15 8.15 0 0 1 2.4 5.8c0 4.5-3.68 8.2-8.2 8.2Zm4.75-6.1c-.26-.13-1.55-.77-1.79-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.84 1.02-.15.18-.31.2-.57.07-.26-.13-1.1-.4-2.1-1.28a7.9 7.9 0 0 1-1.45-1.8c-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.46.13-.15.18-.26.26-.44.09-.18.04-.34-.02-.47-.07-.13-.6-1.44-.82-1.97-.22-.53-.44-.45-.6-.45h-.51c-.18 0-.47.07-.71.34-.24.26-.93.91-.93 2.22s.95 2.57 1.08 2.75c.13.18 1.89 2.89 4.57 4.05.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.55-.64 1.77-1.26.22-.62.22-1.15.15-1.26-.06-.11-.24-.18-.5-.31Z" fill="currentColor"/>
+                        </svg>
+                        <span data-i18n="whatsappCta">WhatsApp</span>
+                    </a>
+                </div>
+
+                <form class="contact-form">
+                    <label>
+                        <span data-i18n="formName">Nom</span>
+                        <input type="text" name="name" data-placeholder-i18n="formNamePlaceholder" placeholder="Votre nom" />
+                    </label>
+                    <label>
+                        <span data-i18n="formEmail">Email</span>
+                        <input type="email" name="email" data-placeholder-i18n="formEmailPlaceholder" placeholder="Votre email" />
+                    </label>
+                    <label>
+                        <span data-i18n="formMessage">Message</span>
+                        <textarea name="message" rows="5" data-placeholder-i18n="formMessagePlaceholder" placeholder="Décrivez votre besoin"></textarea>
+                    </label>
+                    <button type="submit" class="cta-button" data-i18n="formSend">Envoyer</button>
+                </form>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>© 2026 NAHI COFFEE</p>
+            <p data-i18n="footerText">Site multilingue, mode clair/sombre et design adapté à votre marque.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
