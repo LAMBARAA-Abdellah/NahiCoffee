@@ -1,0 +1,23 @@
+{
+    "name": "Nahi Coffee",
+    "short_name": "Nahi Coffee",
+    "description": "Premium coffee beans and professional coffee solutions in Morocco.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#07110b",
+    "theme_color": "#07110b",
+    "lang": "fr",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
