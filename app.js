@@ -68,6 +68,7 @@ const translations = {
         footerEmail: 'Email',
         footerAddress: 'Adresse',
         footerWhatsapp: 'WhatsApp',
+        footerSocialTitle: 'Réseaux sociaux',
         footerRights: 'Tous droits réservés.',
         footerText: 'La qualité dans chaque tasse — Rabat, Maroc.'
     },
@@ -140,6 +141,7 @@ const translations = {
         footerEmail: 'Email',
         footerAddress: 'Address',
         footerWhatsapp: 'WhatsApp',
+        footerSocialTitle: 'Social media',
         footerRights: 'All rights reserved.',
         footerText: 'Quality in every cup — Rabat, Morocco.'
     },
@@ -212,6 +214,7 @@ const translations = {
         footerEmail: 'Correo',
         footerAddress: 'Dirección',
         footerWhatsapp: 'WhatsApp',
+        footerSocialTitle: 'Redes sociales',
         footerRights: 'Todos los derechos reservados.',
         footerText: 'Calidad en cada taza — Rabat, Marruecos.'
     },
@@ -284,6 +287,7 @@ const translations = {
         footerEmail: 'البريد الإلكتروني',
         footerAddress: 'العنوان',
         footerWhatsapp: 'واتساب',
+        footerSocialTitle: 'وسائل التواصل',
         footerRights: 'جميع الحقوق محفوظة.',
         footerText: 'الجودة في كل فنجان — الرباط، المغرب.'
     }

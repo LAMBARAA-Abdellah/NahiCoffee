@@ -571,8 +571,9 @@ h3 {
 }
 
 .product-card img {
-    aspect-ratio: 4 / 4.5;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
+    object-position: top center;
     width: 100%;
 }
 
@@ -770,6 +771,7 @@ body[data-theme="light"] .whatsapp-btn {
     height: 100%;
     min-height: 240px;
     object-fit: cover;
+    object-position: top center;
 }
 
 .gallery-cta {
@@ -903,6 +905,44 @@ body[data-theme="light"] .whatsapp-btn {
     color: var(--muted);
 }
 
+.footer-social {
+    margin-top: 22px;
+}
+
+.footer-social-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-social-list a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    transition: transform 180ms ease, color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.footer-social-list a:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+}
+
+.footer-social-list svg {
+    width: 18px;
+    height: 18px;
+}
+
 .footer-title {
     margin: 0 0 16px;
     color: var(--gold);
@@ -1028,6 +1068,7 @@ body[data-theme="light"] .footer-whatsapp {
 .footer-brand-link:focus-visible,
 .footer-contact-list a:focus-visible,
 .footer-whatsapp:focus-visible,
+.footer-social-list a:focus-visible,
 .icon-button:focus-visible,
 .lang-dropdown-toggle:focus-visible,
 .lang-dropdown-menu button:focus-visible,
