@@ -1,6 +1,6 @@
 (function () {
     const WIDGET_ID = 'nahi-whatsapp-widget';
-    const WHATSAPP_URL = 'https://wa.me/212661773616';
+    const WHATSAPP_URL = 'https://wa.me/212769604400';
     const LANG_TEXT = {
         fr: 'Discutez avec nous sur WhatsApp',
         en: 'Chat with us on WhatsApp',

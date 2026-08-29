@@ -309,7 +309,7 @@ const langMeta = {
     ar: { label: 'AR', flag: 'flag-ar' }
 };
 
-const WHATSAPP_PHONE = '212661773616';
+const WHATSAPP_PHONE = '212769604400';
 
 const whatsappProductMessages = {
     fr: (productName) => `Bonjour 👋\n\nJe souhaite acheter le café ${productName}.\n\nPouvez-vous me communiquer les modalités de commande ?\n\nMerci.`,
