@@ -1,10 +1,15 @@
 (function () {
     const WIDGET_ID = 'nahi-whatsapp-widget';
-    const WHATSAPP_URL = 'https://wa.me/212769604400';
+    const CONTACTS = [
+        { flag: 'flag-ma', country: 'Maroc', number: '+212 769 604 400', url: 'https://wa.me/212769604400' },
+        { flag: 'flag-es', country: 'España', number: '+34 603 43 92 97', url: 'https://wa.me/34603439297' }
+    ];
+    window.NAHI_WHATSAPP_CONTACTS = CONTACTS;
     const LANG_TEXT = {
-        fr: 'Discutez avec nous sur WhatsApp',
-        en: 'Chat with us on WhatsApp',
-        ar: 'تحدث معنا على واتساب'
+        fr: 'Choisissez un numéro WhatsApp',
+        en: 'Choose a WhatsApp number',
+        es: 'Elige un número de WhatsApp',
+        ar: 'اختر رقم واتساب'
     };
 
     function getLanguage() {
@@ -40,8 +45,18 @@
         widget.className = 'nahi-whatsapp-widget';
         widget.setAttribute('data-nahi-whatsapp-widget', 'true');
 
+        const contactsMarkup = CONTACTS.map((contact) => `
+            <a class="nahi-whatsapp-widget__option" role="menuitem" href="${contact.url}" target="_blank" rel="noopener noreferrer">
+                <span class="nahi-whatsapp-widget__flag ${contact.flag}" aria-hidden="true"></span>
+                <span class="nahi-whatsapp-widget__option-text">
+                    <strong>${contact.country}</strong>
+                    <small dir="ltr">${contact.number}</small>
+                </span>
+            </a>
+        `).join('');
+
         widget.innerHTML = `
-            <a class="nahi-whatsapp-widget__button" href="${WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" aria-describedby="${WIDGET_ID}-tooltip">
+            <button type="button" class="nahi-whatsapp-widget__button" aria-haspopup="menu" aria-expanded="false" aria-controls="${WIDGET_ID}-menu" aria-describedby="${WIDGET_ID}-tooltip">
                 <span class="nahi-whatsapp-widget__progress" aria-hidden="true"></span>
                 <span class="nahi-whatsapp-widget__icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" focusable="false">
@@ -49,8 +64,11 @@
                     </svg>
                 </span>
                 <span class="nahi-whatsapp-widget__accent" aria-hidden="true"></span>
-            </a>
+            </button>
             <div class="nahi-whatsapp-widget__tooltip" id="${WIDGET_ID}-tooltip" role="tooltip"></div>
+            <div class="nahi-whatsapp-widget__menu" id="${WIDGET_ID}-menu" role="menu">
+                ${contactsMarkup}
+            </div>
         `;
 
         document.body.appendChild(widget);
@@ -58,7 +76,44 @@
         const button = widget.querySelector('.nahi-whatsapp-widget__button');
         const tooltip = widget.querySelector('.nahi-whatsapp-widget__tooltip');
         const progressRing = widget.querySelector('.nahi-whatsapp-widget__progress');
+        const menu = widget.querySelector('.nahi-whatsapp-widget__menu');
+        const menuOptions = Array.from(widget.querySelectorAll('.nahi-whatsapp-widget__option'));
         const footer = document.querySelector('.site-footer');
+        let menuOpen = false;
+
+        function setMenuOpen(nextOpen) {
+            if (menuOpen === nextOpen) {
+                return;
+            }
+
+            menuOpen = nextOpen;
+            widget.classList.toggle('is-menu-open', menuOpen);
+            button.setAttribute('aria-expanded', String(menuOpen));
+        }
+
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+            setMenuOpen(!menuOpen);
+        });
+
+        menuOptions.forEach((option) => {
+            option.addEventListener('click', () => {
+                setMenuOpen(false);
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (menuOpen && !widget.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && menuOpen) {
+                setMenuOpen(false);
+                button.focus();
+            }
+        });
 
         const setWidgetX = window.gsap.quickTo(widget, 'x', { duration: 0.55, ease: 'power3.out' });
         const setWidgetY = window.gsap.quickTo(widget, 'y', { duration: 0.55, ease: 'power3.out' });

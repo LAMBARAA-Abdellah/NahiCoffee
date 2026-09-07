@@ -309,7 +309,10 @@ const langMeta = {
     ar: { label: 'AR', flag: 'flag-ar' }
 };
 
-const WHATSAPP_PHONE = '212769604400';
+const WHATSAPP_CONTACTS = window.NAHI_WHATSAPP_CONTACTS || [
+    { flag: 'flag-ma', country: 'Maroc', url: 'https://wa.me/212769604400', number: '+212 769 604 400' },
+    { flag: 'flag-es', country: 'España', url: 'https://wa.me/34603439297', number: '+34 603 43 92 97' }
+];
 
 const whatsappProductMessages = {
     fr: (productName) => `Bonjour 👋\n\nJe souhaite acheter le café ${productName}.\n\nPouvez-vous me communiquer les modalités de commande ?\n\nMerci.`,
@@ -318,10 +321,10 @@ const whatsappProductMessages = {
     ar: (productName) => `مرحبًا 👋\n\nأرغب في شراء قهوة ${productName}.\n\nهل يمكنكم إرسال تفاصيل الطلب؟\n\nشكرًا.`
 };
 
-function buildWhatsappProductUrl(productName, lang) {
+function buildWhatsappProductUrl(productName, lang, waUrl) {
     const messageBuilder = whatsappProductMessages[lang] || whatsappProductMessages.fr;
     const message = messageBuilder(productName);
-    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+    return `${waUrl}?text=${encodeURIComponent(message)}`;
 }
 
 function updateProductWhatsappButtons(lang) {
@@ -336,6 +339,74 @@ function updateProductWhatsappButtons(lang) {
     });
 }
 
+let productWhatsappPopover = null;
+let productWhatsappActiveButton = null;
+
+function ensureProductWhatsappPopover() {
+    if (productWhatsappPopover) {
+        return productWhatsappPopover;
+    }
+
+    const popover = document.createElement('div');
+    popover.className = 'whatsapp-choice-popover';
+    popover.setAttribute('role', 'menu');
+    popover.innerHTML = WHATSAPP_CONTACTS.map((contact, index) => `
+        <a class="whatsapp-choice-popover__option" role="menuitem" data-contact-index="${index}" target="_blank" rel="noopener noreferrer">
+            <span class="contact-flag ${contact.flag}" aria-hidden="true"></span>
+            <span class="whatsapp-choice-popover__text">
+                <strong>${contact.country}</strong>
+                <small dir="ltr">${contact.number}</small>
+            </span>
+        </a>
+    `).join('');
+
+    document.body.appendChild(popover);
+
+    popover.addEventListener('click', (event) => {
+        if (event.target.closest('.whatsapp-choice-popover__option')) {
+            closeProductWhatsappPopover();
+        }
+    });
+
+    productWhatsappPopover = popover;
+    return popover;
+}
+
+function closeProductWhatsappPopover() {
+    if (!productWhatsappPopover || !productWhatsappActiveButton) {
+        return;
+    }
+
+    productWhatsappPopover.classList.remove('is-open');
+    productWhatsappActiveButton.setAttribute('aria-expanded', 'false');
+    productWhatsappActiveButton = null;
+}
+
+function positionProductWhatsappPopover(button) {
+    const rect = button.getBoundingClientRect();
+    productWhatsappPopover.style.left = `${window.scrollX + rect.left}px`;
+    productWhatsappPopover.style.top = `${window.scrollY + rect.top - 10}px`;
+    productWhatsappPopover.style.width = `${rect.width}px`;
+}
+
+function openProductWhatsappPopover(button) {
+    const popover = ensureProductWhatsappPopover();
+    const lang = html.lang || 'fr';
+    const dictionary = translations[lang] || translations.fr;
+    const productKey = button.dataset.productKey;
+    const productName = dictionary[productKey] || translations.fr[productKey] || '';
+
+    popover.querySelectorAll('.whatsapp-choice-popover__option').forEach((option) => {
+        const contact = WHATSAPP_CONTACTS[Number(option.dataset.contactIndex)];
+        option.href = buildWhatsappProductUrl(productName, lang, contact.url);
+    });
+
+    positionProductWhatsappPopover(button);
+    popover.classList.add('is-open');
+    button.setAttribute('aria-expanded', 'true');
+    productWhatsappActiveButton = button;
+}
+
 function initProductWhatsappButtons() {
     document.querySelectorAll('.whatsapp-btn[data-product-key]').forEach((button) => {
         if (button.dataset.whatsappBound === 'true') {
@@ -343,15 +414,47 @@ function initProductWhatsappButtons() {
         }
 
         button.dataset.whatsappBound = 'true';
-        button.addEventListener('click', () => {
-            const lang = html.lang || 'fr';
-            const dictionary = translations[lang] || translations.fr;
-            const productKey = button.dataset.productKey;
-            const productName = dictionary[productKey] || translations.fr[productKey] || '';
-            const url = buildWhatsappProductUrl(productName, lang);
+        button.setAttribute('aria-haspopup', 'menu');
+        button.setAttribute('aria-expanded', 'false');
 
-            window.open(url, '_blank', 'noopener,noreferrer');
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            if (productWhatsappActiveButton === button) {
+                closeProductWhatsappPopover();
+                return;
+            }
+
+            openProductWhatsappPopover(button);
         });
+    });
+
+    document.addEventListener('click', (event) => {
+        if (productWhatsappActiveButton
+            && !event.target.closest('.whatsapp-choice-popover')
+            && !event.target.closest('.whatsapp-btn[data-product-key]')) {
+            closeProductWhatsappPopover();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && productWhatsappActiveButton) {
+            const button = productWhatsappActiveButton;
+            closeProductWhatsappPopover();
+            button.focus();
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        if (productWhatsappActiveButton) {
+            positionProductWhatsappPopover(productWhatsappActiveButton);
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        if (productWhatsappActiveButton) {
+            positionProductWhatsappPopover(productWhatsappActiveButton);
+        }
     });
 }
 

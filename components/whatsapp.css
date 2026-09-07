@@ -37,6 +37,11 @@
     transform-origin: center;
     overflow: visible;
     outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
 }
 
 .nahi-whatsapp-widget__button::before {
@@ -207,6 +212,78 @@
     animation: nahi-whatsapp-float 5.6s ease-in-out infinite;
 }
 
+.nahi-whatsapp-widget__menu {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-end: calc(100% + 16px);
+    display: grid;
+    gap: 6px;
+    min-width: 232px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(7, 15, 10, 0.92);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, 10px, 0) scale(0.94);
+    transform-origin: bottom right;
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.nahi-whatsapp-widget.is-menu-open .nahi-whatsapp-widget__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0) scale(1);
+    pointer-events: auto;
+}
+
+.nahi-whatsapp-widget__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #f8f4ea;
+    transition: background 180ms ease;
+}
+
+.nahi-whatsapp-widget__option:hover,
+.nahi-whatsapp-widget__option:focus-visible {
+    background: rgba(37, 211, 102, 0.16);
+    outline: none;
+}
+
+.nahi-whatsapp-widget__flag {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.nahi-whatsapp-widget__option-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.nahi-whatsapp-widget__option-text strong {
+    font: 600 0.86rem/1.2 'Inter', system-ui, sans-serif;
+}
+
+.nahi-whatsapp-widget__option-text small {
+    font: 500 0.76rem/1.2 'Inter', system-ui, sans-serif;
+    color: rgba(248, 244, 234, 0.7);
+}
+
 @media (max-width: 768px) {
     .nahi-whatsapp-widget {
         right: max(14px, env(safe-area-inset-right));
@@ -229,6 +306,10 @@
     .nahi-whatsapp-widget.is-tooltip-visible .nahi-whatsapp-widget__tooltip {
         transform: translate3d(0, 0, 0) scale(1);
     }
+
+    .nahi-whatsapp-widget__menu {
+        min-width: min(84vw, 260px);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -237,7 +318,8 @@
     .nahi-whatsapp-widget__button,
     .nahi-whatsapp-widget__button::before,
     .nahi-whatsapp-widget__button::after,
-    .nahi-whatsapp-widget__tooltip {
+    .nahi-whatsapp-widget__tooltip,
+    .nahi-whatsapp-widget__menu {
         animation: none !important;
         transition-duration: 0.01ms !important;
     }
